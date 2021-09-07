@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mvd5M7DK3qUbmgYKWp3Op5bdz7OTNT6NxAAH6yXwq1X/aXp3nZG3E/7awbmYGr57nS/Vsh/gisKuac+nE86AWg==",
+  "dgSpecHash": "MWPd/L6ZPTQFMRXrcyphhhgLgkIlo5loL0zUIXIN0Gxbdt+PTvcNcup80RGh2uSYCh53T5taKAyv5k0+tlB0aw==",
   "success": true,
-  "projectFilePath": "D:\\January_Joy\\JTC_Projects\\模板程式\\WebAPI_Core\\WebAPI_Core_Proj\\DataAccessLayer\\DataAccessLayer.csproj",
+  "projectFilePath": "D:\\January_Joy\\JTC_Projects\\模板程式\\WebAPI_Core\\.NETCoreWebApi_Temp\\DataAccessLayer\\DataAccessLayer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\JOY\\.nuget\\packages\\dapper\\2.0.90\\dapper.2.0.90.nupkg.sha512",
     "C:\\Users\\JOY\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",

@@ -20,13 +20,12 @@ namespace WebAPI_Core_Proj
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<ConfigModel>(Configuration.GetSection("Configurations"));
+            services.Configure<ConfigViewModel>(Configuration.GetSection("Configurations"));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI_Core_Proj", Version = "v1" });
             });
-            services.Configure<ConfigModel>(Configuration.GetSection("Configurations"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

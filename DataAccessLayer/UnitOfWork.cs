@@ -1,54 +1,68 @@
 ﻿using DataAccessLayer.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
     public class UnitOfWork<T> : IUnitOfWork<T> where T : class
     {
-        private IDbConnection _connection;
-        private IDbTransaction _transaction;
         private IGenericRepository<T> _genericRepository;
-        private bool _disposed;
-        private readonly string _tableName;
-        private readonly string _dbConnec;
+        private IDbConnection _connection;
+        private IDbTransaction _dbTransaction;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="tableName"></param>
         /// <param name="dbConnection"></param>
-        public UnitOfWork(string tableName, string dbConnection)
+        public UnitOfWork(string connecStr)
         {
-            _tableName = tableName;
-            _dbConnec = dbConnection;
-        }
-
-        /// <summary>
-        /// Generate new connection based on connection string
-        /// </summary>
-        /// <returns></returns>
-        private SqlConnection SqlConnection()
-        {
-            return new SqlConnection(_dbConnec);
+            _connection = new SqlConnection(connecStr);
+            _connection.Open();
+            _dbTransaction = _connection.BeginTransaction();
         }
 
         public IGenericRepository<T> GetGenericRepository =>
-            _genericRepository ?? (_genericRepository = new GenericRepository<T>(_transaction));
+            _genericRepository ?? (_genericRepository = new GenericRepository<T>(_connection, _dbTransaction));
 
         public void Complete()
         {
-            throw new NotImplementedException();
+            try
+            {
+                _dbTransaction.Commit();
+            }
+            catch
+            {
+                _dbTransaction.Rollback();
+                throw;
+            }
+            finally
+            {
+                _dbTransaction.Dispose();
+                _dbTransaction = _connection.BeginTransaction();
+                ResetRepositories();
+            }
+        }
+
+        private void ResetRepositories()
+        {
+            _genericRepository = null;
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            if (_dbTransaction != null)
+            {
+                _dbTransaction.Dispose();
+                _dbTransaction = null;
+            }
+            if (_connection != null)
+            {
+                _connection.Dispose();
+                _connection = null;
+            }
+            GC.SuppressFinalize(this);
         }
     }
 }

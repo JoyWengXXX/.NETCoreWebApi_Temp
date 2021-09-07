@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\January_Joy\\JTC_Projects\\模板程式\\WebAPI_Core\\WebAPI_Core_Proj\\DataAccessLayer\\DataAccessLayer.csproj": {}
+    "D:\\January_Joy\\JTC_Projects\\模板程式\\WebAPI_Core\\.NETCoreWebApi_Temp\\DataAccessLayer\\DataAccessLayer.csproj": {}
   },
   "projects": {
-    "D:\\January_Joy\\JTC_Projects\\模板程式\\WebAPI_Core\\WebAPI_Core_Proj\\DataAccessLayer\\DataAccessLayer.csproj": {
+    "D:\\January_Joy\\JTC_Projects\\模板程式\\WebAPI_Core\\.NETCoreWebApi_Temp\\DataAccessLayer\\DataAccessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\January_Joy\\JTC_Projects\\模板程式\\WebAPI_Core\\WebAPI_Core_Proj\\DataAccessLayer\\DataAccessLayer.csproj",
+        "projectUniqueName": "D:\\January_Joy\\JTC_Projects\\模板程式\\WebAPI_Core\\.NETCoreWebApi_Temp\\DataAccessLayer\\DataAccessLayer.csproj",
         "projectName": "DataAccessLayer",
-        "projectPath": "D:\\January_Joy\\JTC_Projects\\模板程式\\WebAPI_Core\\WebAPI_Core_Proj\\DataAccessLayer\\DataAccessLayer.csproj",
+        "projectPath": "D:\\January_Joy\\JTC_Projects\\模板程式\\WebAPI_Core\\.NETCoreWebApi_Temp\\DataAccessLayer\\DataAccessLayer.csproj",
         "packagesPath": "C:\\Users\\JOY\\.nuget\\packages\\",
-        "outputPath": "D:\\January_Joy\\JTC_Projects\\模板程式\\WebAPI_Core\\WebAPI_Core_Proj\\DataAccessLayer\\obj\\",
+        "outputPath": "D:\\January_Joy\\JTC_Projects\\模板程式\\WebAPI_Core\\.NETCoreWebApi_Temp\\DataAccessLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -24,8 +24,6 @@
           "net5.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "http://nuget.famastech.com/nuget": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

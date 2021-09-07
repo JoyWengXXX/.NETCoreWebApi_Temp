@@ -2,22 +2,34 @@
 using DataAccessLayer.Interfaces;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessLayer.Models;
+using DataAccessLayer.Interfaces.Enum;
 
 namespace DataAccessLayer
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private readonly string _tableName;
-        private readonly string _dbConnec;
+        private IDbConnection _connection;
+        private IDbTransaction _dbTransaction;
+        private string _tableName;
+
+        public GenericRepository(IDbConnection connection, IDbTransaction dbTransaction)
+        {
+            _dbTransaction = dbTransaction;
+            _connection = connection;
+
+            TableAttribute tAttribute = (TableAttribute)typeof(T).GetCustomAttributes(typeof(TableAttribute), true)[0];
+            _tableName = tAttribute.Name;
+        }
 
         /// <summary>
-        /// Extract field names from model object
+        /// 取出對應類別中的屬性欄位
         /// </summary>
         /// <param name="listOfProperties"></param>
         /// <returns></returns>
@@ -29,102 +41,69 @@ namespace DataAccessLayer
                     select prop.Name).ToList();
         }
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="tableName"></param>
-        /// <param name="dbConnection"></param>
-        public GenericRepository(string tableName, string dbConnection)
-        {
-            _tableName = tableName;
-            _dbConnec = dbConnection;
-        }
+        private IEnumerable<PropertyInfo> GetProperties => typeof(T).GetProperties();
 
         /// <summary>
-        /// Generate new connection based on connection string
+        /// 查詢單筆
         /// </summary>
         /// <returns></returns>
-        private SqlConnection SqlConnection()
+        public async Task<T> QueryAsync(T entity, List<WhereContext> whereContext)
         {
-            return new SqlConnection(_dbConnec);
-        }
-
-        /// <summary>
-        /// Open new connection and return it for use
-        /// </summary>
-        /// <returns></returns>
-        private IDbConnection CreateConnection()
-        {
-            var conn = SqlConnection();
-            conn.Open();
-            return conn;
-        }
-
-        /// <summary>
-        /// Query Data
-        /// </summary>
-        /// <param name="condition">WHERE Condition</param>
-        /// <param name="conditionValue">Condition Value</param>
-        /// <returns></returns>
-        public async Task<T> QueryAsync(T entity, string condition, string conditionValue)
-        {
-            using (var connection = CreateConnection())
+            StringBuilder querySQL = new StringBuilder($"SELECT ");
+            List<string> properties = GenerateListOfProperties(GetProperties);
+            properties.ForEach(property =>
             {
-                StringBuilder querySQL = new StringBuilder($"SELECT ");
-                List<string> properties = GenerateListOfProperties(GetProperties);
-                properties.ForEach(property =>
-                {
-                    querySQL.Append($"{property}=@{property},");
-                });
-                querySQL.Remove(querySQL.Length - 1, 1).Append($" FROM {_tableName} ");
-                if (condition != null)
-                {
-                    querySQL.Append($"WHERE {condition} = @{conditionValue}");
-                }
-                var result = await connection.QuerySingleOrDefaultAsync<T>(querySQL.ToString(), entity);
+                querySQL.Append($"{property},");
+            });
+            querySQL.Remove(querySQL.Length - 1, 1).Append($" FROM {_tableName} ");
+            querySQL = BuildConditionStr(querySQL, whereContext);
+            try
+            {
+                var result = await _connection.QuerySingleOrDefaultAsync<T>(querySQL.ToString(), entity, _dbTransaction);
                 if (result == null)
-                    throw new KeyNotFoundException($"{_tableName} with [{condition}] = [{conditionValue}] could not be found.");
-
+                    throw new KeyNotFoundException($"Can't find any result after executing SQL [{querySQL.ToString()}]");
                 return result;
+            }
+            catch
+            {
+                throw;
             }
         }
 
         /// <summary>
-        /// Query Data List
+        /// 查詢多筆
         /// </summary>
-        /// <param name="condition">WHERE Condition</param>
-        /// <param name="conditionValue">Condition Value</param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> QueryAllAsync(T entity, string condition, string conditionValue)
+        public async Task<IEnumerable<T>> QueryAllAsync(T entity, List<WhereContext> whereContext, OrderByContext orderByContext)
         {
-            using (var connection = CreateConnection())
+            StringBuilder querySQL = new StringBuilder($"SELECT ");
+            List<string> properties = GenerateListOfProperties(GetProperties);
+            properties.ForEach(property =>
             {
-                StringBuilder querySQL = new StringBuilder($"SELECT ");
-                List<string> properties = GenerateListOfProperties(GetProperties);
-                properties.ForEach(property =>
-                {
-                    querySQL.Append($"{property}=@{property},");
-                });
-                querySQL.Remove(querySQL.Length - 1, 1).Append($" FROM {_tableName} ");
-                if (condition != null)
-                {
-                    querySQL.Append($"WHERE {condition} = @{conditionValue}");
-                }
-                IEnumerable<T> result = await connection.QueryAsync<T>(querySQL.ToString(), entity);
+                querySQL.Append($"{property},");
+            });
+            querySQL.Remove(querySQL.Length - 1, 1).Append($" FROM {_tableName} ");
+            querySQL = BuildConditionStr(querySQL, whereContext, orderByContext);
+            try
+            {
+                IEnumerable<T> result = await _connection.QueryAsync<T>(querySQL.ToString(), entity, _dbTransaction);
                 if (result == null)
-                    throw new KeyNotFoundException($"{_tableName} with [{condition}] = [{conditionValue}] could not be found.");
+                    throw new KeyNotFoundException($"Can't find any result after executing SQL [{querySQL.ToString()}]");
                 return result;
+            }
+            catch
+            {
+                throw;
             }
         }
 
         /// <summary>
-        /// Create Data
+        /// 新增Table資料
         /// </summary>
-        /// <param name="entity">Input Model</param>
         /// <returns></returns>
         public async Task<int> CreateAsync(T entity)
         {
-            var insertSQL = new StringBuilder($"INSERT INTO {_tableName} ");
+            StringBuilder insertSQL = new StringBuilder($"INSERT INTO {_tableName} ");
 
             insertSQL.Append("(");
 
@@ -144,124 +123,128 @@ namespace DataAccessLayer
                 .Remove(insertSQL.Length - 1, 1)
                 .Append(")");
 
-            using (var connection = CreateConnection())
+            try
             {
-                return await connection.ExecuteAsync(insertSQL.ToString(), entity);
-            }
-        }
-
-        /// <summary>
-        /// Update Data
-        /// </summary>
-        /// <param name="entity">Input Model</param>
-        /// <param name="condition">WHERE Condition</param>
-        /// <param name="conditionValue">Condition Value</param>
-        /// <returns></returns>
-        public async Task<int> UpdateAsync(T entity, string condition, string conditionValue)
-        {
-            {
-                var updateSQL = new StringBuilder($"UPDATE {_tableName} SET ");
-                List<string> properties = GenerateListOfProperties(GetProperties);
-                properties.ForEach(property =>
-                {
-                    updateSQL.Append($"{property}=@{property},");
-                });
-
-                updateSQL.Remove(updateSQL.Length - 1, 1); //remove last comma
-
-                if (condition != null)
-                {
-                    updateSQL.Append($" WHERE {condition} = @{conditionValue}");
-                }
-
-                using (var connection = CreateConnection())
-                {
-                    return await connection.ExecuteAsync(updateSQL.ToString(), entity);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Delete Data
-        /// </summary>
-        /// <param name="condition">WHERE Condition</param>
-        /// <param name="conditionValue">Condition Value</param>
-        /// <returns></returns>
-        public async Task<int> DeleteAsync(string condition, string conditionValue)
-        {
-            using (var connection = CreateConnection())
-            {
-                StringBuilder deleteSQL = new StringBuilder($"DELETE FROM {_tableName} ");
-                if (condition != null)
-                {
-                    deleteSQL.Append($"WHERE {condition} = @{conditionValue}");
-                }
-                return await connection.ExecuteAsync(deleteSQL.ToString(), new { conditionValue });
-            }
-        }
-
-        private IEnumerable<PropertyInfo> GetProperties => typeof(T).GetProperties();
-
-
-
-
-
-
-        /// <summary>
-        /// Query Data
-        /// </summary>
-        /// <param name="condition">WHERE Condition</param>
-        /// <param name="conditionValue">Condition Value</param>
-        /// <returns></returns>
-        public async Task<T> QueryAsync2(T entity, string condition, string conditionValue)
-        {
-            using (var connection = CreateConnection())
-            {
-                StringBuilder querySQL = new StringBuilder($"SELECT ");
-                List<string> properties = GenerateListOfProperties(GetProperties);
-                properties.ForEach(property =>
-                {
-                    querySQL.Append($"{property}=@{property},");
-                });
-                querySQL.Remove(querySQL.Length - 1, 1).Append($" FROM {_tableName} ");
-                if (condition != null)
-                {
-                    querySQL.Append($"WHERE {condition} = @{conditionValue}");
-                }
-                var result = await connection.QuerySingleOrDefaultAsync<T>(querySQL.ToString(), entity);
-                if (result == null)
-                    throw new KeyNotFoundException($"{_tableName} with [{condition}] = [{conditionValue}] could not be found.");
-
+                int result = await _connection.ExecuteAsync(insertSQL.ToString(), entity, _dbTransaction);
                 return result;
             }
+            catch
+            {
+                throw;
+            }
         }
 
         /// <summary>
-        /// Query Data List
+        /// 更新Table資料
         /// </summary>
-        /// <param name="condition">WHERE Condition</param>
-        /// <param name="conditionValue">Condition Value</param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> QueryAllAsync2(T entity, string condition, string conditionValue)
+        public async Task<int> UpdateAsync(T entity, List<WhereContext> whereContext)
         {
-            using (var connection = CreateConnection())
+            StringBuilder updateSQL = new StringBuilder($"UPDATE {_tableName} SET ");
+            List<string> properties = GenerateListOfProperties(GetProperties);
+            properties.ForEach(property =>
             {
-                StringBuilder querySQL = new StringBuilder($"SELECT ");
-                List<string> properties = GenerateListOfProperties(GetProperties);
-                properties.ForEach(property =>
-                {
-                    querySQL.Append($"{property}=@{property},");
-                });
-                querySQL.Remove(querySQL.Length - 1, 1).Append($" FROM {_tableName} ");
-                if (condition != null)
-                {
-                    querySQL.Append($"WHERE {condition} = @{conditionValue}");
-                }
-                IEnumerable<T> result = await connection.QueryAsync<T>(querySQL.ToString(), entity);
-                if (result == null)
-                    throw new KeyNotFoundException($"{_tableName} with [{condition}] = [{conditionValue}] could not be found.");
+                updateSQL.Append($"{property}=@{property},");
+            });
+            updateSQL.Remove(updateSQL.Length - 1, 1); //remove last comma
+            updateSQL = BuildConditionStr(updateSQL, whereContext);
+            try
+            {
+                int result = await _connection.ExecuteAsync(updateSQL.ToString(), entity, _dbTransaction);
                 return result;
             }
+            catch
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 刪除Table資料
+        /// </summary>
+        /// <returns></returns>
+        public async Task<int> DeleteAsync(T entity, List<WhereContext> whereContext)
+        {
+            StringBuilder deleteSQL = new StringBuilder($"DELETE FROM {_tableName} ");
+            deleteSQL = BuildConditionStr(deleteSQL, whereContext);
+            try
+            {
+                return await _connection.ExecuteAsync(deleteSQL.ToString(), entity, _dbTransaction);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<T>> SQLCommandQueryAsync(T entity, StringBuilder sqlQuerySTB)
+        {
+            try
+            {
+                throw new System.NotImplementedException();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<int> SQLCommandExcuteAsync(T entity, StringBuilder sqlQuerySTB)
+        {
+            try
+            {
+                throw new System.NotImplementedException();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        private StringBuilder BuildConditionStr(StringBuilder sqlCommand, List<WhereContext> whereContext = null, OrderByContext orderByContext = null)
+        {
+            if(whereContext != null)
+            {
+                foreach (WhereContext whereCondition in whereContext)
+                {
+                    if (whereCondition == whereContext[0])
+                    {
+                        if(whereCondition.equetion == SQLContextEnum.WhereEnum.NotEqual)
+                        {
+                            sqlCommand.Append($"WHERE {whereCondition.tableColumn} <> @{whereCondition.tableColumn} ");
+                        }
+                        else
+                        {
+                            sqlCommand.Append($"WHERE {whereCondition.tableColumn} = @{whereCondition.tableColumn} ");
+                        }
+                    }
+                    else
+                    {
+                        if (whereCondition.equetion == SQLContextEnum.WhereEnum.NotEqual)
+                        {
+                            sqlCommand.Append($"AND {whereCondition.tableColumn} <> @{whereCondition.tableColumn} ");
+                        }
+                        else
+                        {
+                            sqlCommand.Append($"AND {whereCondition.tableColumn} = @{whereCondition.tableColumn} ");
+                        }
+                    }
+                }
+            }
+
+            if(orderByContext != null)
+            {
+                if(orderByContext.orderType == SQLContextEnum.OrderByEnum.DESC)
+                {
+                    sqlCommand.Append($"ORDER BY {orderByContext.tableColumn} DESC ");
+                }
+                else
+                {
+                    sqlCommand.Append($"ORDER BY {orderByContext.tableColumn} ");
+                }
+            }
+
+            return sqlCommand;
         }
     }
 }
