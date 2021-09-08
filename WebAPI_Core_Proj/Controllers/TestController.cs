@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WebAPI_Core_Proj.BLL;
 using WebAPI_Core_Proj.Filters;
@@ -6,10 +7,8 @@ using WebAPI_Core_Proj.Models.ViewModels;
 
 namespace WebAPI_Core_Proj.Controllers
 {
-    [Result]
-    [Exception]
     [Route("api/[controller]")]
-    public class TestController : BaseController
+    public class TestController
     {
         private TestService _TestService;
 
@@ -22,15 +21,7 @@ namespace WebAPI_Core_Proj.Controllers
         [Route("TestQuery")]
         public void TestQuery()
         {
-            bool result = _TestService.QueryTestObject();
-            if (result)
-            {
-
-            }
-            else
-            {
-
-            }
+            var result = _TestService.QueryTestObject();
         }
     }
 }

@@ -1,5 +1,6 @@
-﻿using Microsoft.Extensions.Options;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 using WebAPI_Core_Proj.DAL;
 using WebAPI_Core_Proj.Models.Entities;
 using WebAPI_Core_Proj.Models.ViewModels;
@@ -15,7 +16,7 @@ namespace WebAPI_Core_Proj.BLL
             _TestDAO = new TestDataAccess(_Config);
         }
 
-        public bool QueryTestObject()
+        public TestEntity QueryTestObject()
         {
             TestEntity returnObj = new TestEntity()
             {
@@ -23,9 +24,9 @@ namespace WebAPI_Core_Proj.BLL
                 Id = "T004"
             };
 
-            var aa = _TestDAO.GetTestQuery(returnObj);
+            var result = _TestDAO.GetTestQuery(returnObj);
 
-            return true;
+            return result;
         } 
     }
 }

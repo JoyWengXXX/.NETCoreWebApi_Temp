@@ -5,7 +5,7 @@ using DataAccessLayer;
 using DataAccessLayer.Models;
 using DataAccessLayer.Interfaces.Enum;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace WebAPI_Core_Proj.DAL
 {
@@ -13,7 +13,7 @@ namespace WebAPI_Core_Proj.DAL
     {
         public TestDataAccess(IOptions<ConfigViewModel> _Config) : base(_Config){}
 
-        public async Task<IEnumerable<TestEntity>> GetTestQuery(TestEntity entityModel)
+        public TestEntity GetTestQuery(TestEntity entityModel)
         {
             using (UnitOfWork<TestEntity> UoWObj = new UnitOfWork<TestEntity>(proj_Config.connectString))
             {
@@ -25,7 +25,7 @@ namespace WebAPI_Core_Proj.DAL
                     orderType = SQLContextEnum.OrderByEnum.DESC
                 };
 
-                IEnumerable<TestEntity> result = await UoWObj.GetGenericRepository.QueryAllAsync(entityModel, where, order);
+               var result = UoWObj.GetGenericRepository.QueryAsync(entityModel).Result;
 
                 UoWObj.Complete();
                 UoWObj.Dispose();

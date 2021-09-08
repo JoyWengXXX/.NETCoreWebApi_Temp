@@ -43,10 +43,6 @@ namespace DataAccessLayer
 
         private IEnumerable<PropertyInfo> GetProperties => typeof(T).GetProperties();
 
-        /// <summary>
-        /// 查詢單筆
-        /// </summary>
-        /// <returns></returns>
         public async Task<T> QueryAsync(T entity, List<WhereContext> whereContext)
         {
             StringBuilder querySQL = new StringBuilder($"SELECT ");
@@ -70,10 +66,6 @@ namespace DataAccessLayer
             }
         }
 
-        /// <summary>
-        /// 查詢多筆
-        /// </summary>
-        /// <returns></returns>
         public async Task<IEnumerable<T>> QueryAllAsync(T entity, List<WhereContext> whereContext, OrderByContext orderByContext)
         {
             StringBuilder querySQL = new StringBuilder($"SELECT ");
@@ -97,10 +89,6 @@ namespace DataAccessLayer
             }
         }
 
-        /// <summary>
-        /// 新增Table資料
-        /// </summary>
-        /// <returns></returns>
         public async Task<int> CreateAsync(T entity)
         {
             StringBuilder insertSQL = new StringBuilder($"INSERT INTO {_tableName} ");
@@ -134,10 +122,6 @@ namespace DataAccessLayer
             }
         }
 
-        /// <summary>
-        /// 更新Table資料
-        /// </summary>
-        /// <returns></returns>
         public async Task<int> UpdateAsync(T entity, List<WhereContext> whereContext)
         {
             StringBuilder updateSQL = new StringBuilder($"UPDATE {_tableName} SET ");
@@ -159,10 +143,6 @@ namespace DataAccessLayer
             }
         }
 
-        /// <summary>
-        /// 刪除Table資料
-        /// </summary>
-        /// <returns></returns>
         public async Task<int> DeleteAsync(T entity, List<WhereContext> whereContext)
         {
             StringBuilder deleteSQL = new StringBuilder($"DELETE FROM {_tableName} ");
@@ -177,11 +157,16 @@ namespace DataAccessLayer
             }
         }
 
-        public async Task<IEnumerable<T>> SQLCommandQueryAsync(T entity, StringBuilder sqlQuerySTB)
+        public async Task<IEnumerable<T>> SQLCommandQueryAsync(T entity, string sqlQueryStr)
         {
+            string querySQL = sqlQueryStr;
             try
             {
-                throw new System.NotImplementedException();
+                IEnumerable<T> result = await _connection.QueryAsync<T>(querySQL, entity, _dbTransaction);
+                if (result == null)
+                    throw new KeyNotFoundException($"Can't find any result after executing SQL [{querySQL}]");
+
+                return result;
             }
             catch
             {
@@ -189,11 +174,12 @@ namespace DataAccessLayer
             }
         }
 
-        public async Task<int> SQLCommandExcuteAsync(T entity, StringBuilder sqlQuerySTB)
+        public async Task<int> SQLCommandExcuteAsync(T entity, string sqlExcutedStr)
         {
+            string excutedSQL = sqlExcutedStr;
             try
             {
-                throw new System.NotImplementedException();
+                return await _connection.ExecuteAsync(excutedSQL, entity, _dbTransaction);
             }
             catch
             {

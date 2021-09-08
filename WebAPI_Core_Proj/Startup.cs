@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using WebAPI_Core_Proj.Filters;
 using WebAPI_Core_Proj.Models.ViewModels;
 
 namespace WebAPI_Core_Proj
@@ -21,6 +23,7 @@ namespace WebAPI_Core_Proj
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<ConfigViewModel>(Configuration.GetSection("Configurations"));
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
