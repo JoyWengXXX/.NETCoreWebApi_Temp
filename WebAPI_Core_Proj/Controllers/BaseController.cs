@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ProjectModels.ViewModels;
 using System.Web.Http.Filters;
-using WebAPI_Core_Proj.Models.ViewModels;
 
 namespace WebAPI_Core_Proj.Controllers
 {

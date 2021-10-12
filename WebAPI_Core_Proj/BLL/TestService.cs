@@ -1,28 +1,33 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Collections.Generic;
-using WebAPI_Core_Proj.DAL;
-using WebAPI_Core_Proj.Models.Entities;
-using WebAPI_Core_Proj.Models.ViewModels;
+using ProjectModels.Entities;
+using ProjectModels.ViewModels;
+//using WebAPI_Core_Proj.DAL.UsingDapper;
+using WebAPI_Core_Proj.DAL.UsingEF;
+using WebAPI_Core_Proj.Filters;
 
 namespace WebAPI_Core_Proj.BLL
 {
     public class TestService
     {
         private TestDataAccess _TestDAO;
+        private ILogger<ExceptionFilter> _logger;
 
-        public TestService(IOptions<ConfigViewModel> _Config)
+        public TestService(IOptions<ConfigViewModel> _Config, ILogger<ExceptionFilter> logger)
         {
             _TestDAO = new TestDataAccess(_Config);
+            _logger = logger;
         }
 
-        public TestEntity QueryTestObject()
+        public Test QueryTestObject()
         {
-            TestEntity returnObj = new TestEntity()
+            Test returnObj = new Test()
             {
                 Data = "TData004",
                 Id = "T004"
             };
+
+            _logger.LogInformation("這是一則LOG");
 
             var result = _TestDAO.GetTestQuery(returnObj);
 

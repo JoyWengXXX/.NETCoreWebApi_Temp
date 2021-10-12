@@ -1,0 +1,17 @@
+2021-09-17 15:24:44.5862||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-09-17 15:24:44.6784||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-09-17 15:24:44.6892||INFO|Microsoft.Hosting.Lifetime|Content root path: D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\WebAPI_Core_Proj 
+2021-09-17 15:24:53.0443||INFO|WebAPI_Core_Proj.Controllers.TestController|這是一則LOG 
+2021-09-17 15:27:08.1449|1|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request. System.InvalidOperationException: Sequence contains more than one element
+   at System.Linq.ThrowHelper.ThrowMoreThanOneElementException()
+   at System.Linq.Enumerable.SingleOrDefault[TSource](IEnumerable`1 source)
+   at Dapper.SqlMapper.ThrowMultipleRows(Row row) in /_/Dapper/SqlMapper.cs:line 1144
+   at Dapper.SqlMapper.QueryRowAsync[T](IDbConnection cnn, Row row, Type effectiveType, CommandDefinition command) in /_/Dapper/SqlMapper.Async.cs:line 482
+   at DataAccessLayer.GenericRepository`1.QueryAsync(T entity, List`1 whereContext) in D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\DataAccessLayer\GenericRepository.cs:line 58
+2021-09-17 15:27:08.1579|2|WARN|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|The response has already started, the error page middleware will not be executed. 
+2021-09-17 15:27:08.2045|2|ERROR|Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer|Connection ID "18374686524231909444", Request ID "80000045-000a-ff00-b63f-84710c7967bb": An unhandled exception was thrown by the application. System.InvalidOperationException: Sequence contains more than one element
+   at System.Linq.ThrowHelper.ThrowMoreThanOneElementException()
+   at System.Linq.Enumerable.SingleOrDefault[TSource](IEnumerable`1 source)
+   at Dapper.SqlMapper.ThrowMultipleRows(Row row) in /_/Dapper/SqlMapper.cs:line 1144
+   at Dapper.SqlMapper.QueryRowAsync[T](IDbConnection cnn, Row row, Type effectiveType, CommandDefinition command) in /_/Dapper/SqlMapper.Async.cs:line 482
+   at DataAccessLayer.GenericRepository`1.QueryAsync(T entity, List`1 whereContext) in D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\DataAccessLayer\GenericRepository.cs:line 58

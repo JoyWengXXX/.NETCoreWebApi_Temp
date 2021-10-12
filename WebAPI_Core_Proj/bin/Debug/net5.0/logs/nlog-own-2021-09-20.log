@@ -1,0 +1,17 @@
+2021-09-20 15:54:48.9816||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. |url: |action: 
+2021-09-20 15:54:49.0168||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development |url: |action: 
+2021-09-20 15:54:49.0168||INFO|Microsoft.Hosting.Lifetime|Content root path: D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\WebAPI_Core_Proj |url: |action: 
+2021-09-20 15:55:16.5241||INFO|WebAPI_Core_Proj.Controllers.TestController|這是一則LOG |url: https://localhost/api/Test/TestQuery|action: TestQuery
+2021-09-20 15:55:29.8241|1|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request. System.InvalidOperationException: Sequence contains more than one element
+   at System.Linq.ThrowHelper.ThrowMoreThanOneElementException()
+   at System.Linq.Enumerable.SingleOrDefault[TSource](IEnumerable`1 source)
+   at Dapper.SqlMapper.ThrowMultipleRows(Row row) in /_/Dapper/SqlMapper.cs:line 1144
+   at Dapper.SqlMapper.QueryRowAsync[T](IDbConnection cnn, Row row, Type effectiveType, CommandDefinition command) in /_/Dapper/SqlMapper.Async.cs:line 482
+   at DataAccessLayer.GenericRepository`1.QueryAsync(T entity, List`1 whereContext) in D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\DataAccessLayer\GenericRepository.cs:line 58|url: https://localhost/api/Test/TestQuery|action: TestQuery
+2021-09-20 15:55:29.8338|2|WARN|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|The response has already started, the error page middleware will not be executed. |url: https://localhost/api/Test/TestQuery|action: TestQuery
+2021-09-20 15:55:29.8789|2|ERROR|Microsoft.AspNetCore.Server.IIS.Core.IISHttpServer|Connection ID "18374686498462105605", Request ID "80000006-0004-ff00-b63f-84710c7967bb": An unhandled exception was thrown by the application. System.InvalidOperationException: Sequence contains more than one element
+   at System.Linq.ThrowHelper.ThrowMoreThanOneElementException()
+   at System.Linq.Enumerable.SingleOrDefault[TSource](IEnumerable`1 source)
+   at Dapper.SqlMapper.ThrowMultipleRows(Row row) in /_/Dapper/SqlMapper.cs:line 1144
+   at Dapper.SqlMapper.QueryRowAsync[T](IDbConnection cnn, Row row, Type effectiveType, CommandDefinition command) in /_/Dapper/SqlMapper.Async.cs:line 482
+   at DataAccessLayer.GenericRepository`1.QueryAsync(T entity, List`1 whereContext) in D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\DataAccessLayer\GenericRepository.cs:line 58|url: https://localhost/api/Test/TestQuery|action: TestQuery

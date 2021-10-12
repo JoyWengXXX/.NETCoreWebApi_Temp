@@ -29,7 +29,11 @@
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\January_Joy\\JTC_Projects\\模板程式\\WebAPI_Core\\.NETCoreWebApi_Temp\\ProjectModels\\ProjectModels.csproj": {
+                "projectPath": "D:\\January_Joy\\JTC_Projects\\模板程式\\WebAPI_Core\\.NETCoreWebApi_Temp\\ProjectModels\\ProjectModels.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -46,11 +50,71 @@
               "target": "Package",
               "version": "[2.0.90, )"
             },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
             "System.Data.SqlClient": {
               "target": "Package",
-              "version": "[4.8.2, )"
+              "version": "[4.8.3, )"
             }
           },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\January_Joy\\JTC_Projects\\模板程式\\WebAPI_Core\\.NETCoreWebApi_Temp\\ProjectModels\\ProjectModels.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\January_Joy\\JTC_Projects\\模板程式\\WebAPI_Core\\.NETCoreWebApi_Temp\\ProjectModels\\ProjectModels.csproj",
+        "projectName": "ProjectModels",
+        "projectPath": "D:\\January_Joy\\JTC_Projects\\模板程式\\WebAPI_Core\\.NETCoreWebApi_Temp\\ProjectModels\\ProjectModels.csproj",
+        "packagesPath": "C:\\Users\\JOY\\.nuget\\packages\\",
+        "outputPath": "D:\\January_Joy\\JTC_Projects\\模板程式\\WebAPI_Core\\.NETCoreWebApi_Temp\\ProjectModels\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\JOY\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
           "imports": [
             "net461",
             "net462",

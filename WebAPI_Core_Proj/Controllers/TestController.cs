@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ProjectModels.ViewModels;
 using WebAPI_Core_Proj.BLL;
 using WebAPI_Core_Proj.Filters;
-using WebAPI_Core_Proj.Models.ViewModels;
 
 namespace WebAPI_Core_Proj.Controllers
 {
@@ -11,10 +11,12 @@ namespace WebAPI_Core_Proj.Controllers
     public class TestController
     {
         private TestService _TestService;
+        private ILogger<ExceptionFilter> _logger;
 
-        public TestController(IOptions<ConfigViewModel> _Config)
+        public TestController(IOptions<ConfigViewModel> _Config, ILogger<ExceptionFilter> logger)
         {
-            _TestService = new TestService(_Config);
+            _TestService = new TestService(_Config, logger);
+            _logger = logger;
         }
 
         [HttpPost]

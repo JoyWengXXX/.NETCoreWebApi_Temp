@@ -1,0 +1,11 @@
+2021-09-27 14:28:53.0175||DEBUG|WebAPI_Core_Proj.Program|init main 
+2021-09-27 14:28:54.8980||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-09-27 14:28:54.9112||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-09-27 14:28:54.9247||INFO|Microsoft.Hosting.Lifetime|Content root path: D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\WebAPI_Core_Proj 
+2021-09-27 14:29:03.8505||INFO|WebAPI_Core_Proj.Filters.ExceptionFilter|這是一則LOG 
+2021-09-27 14:29:05.0206|1|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request. System.InvalidOperationException: Sequence contains more than one element
+   at System.Linq.ThrowHelper.ThrowMoreThanOneElementException()
+   at System.Linq.Enumerable.SingleOrDefault[TSource](IEnumerable`1 source)
+   at Dapper.SqlMapper.ThrowMultipleRows(Row row) in /_/Dapper/SqlMapper.cs:line 1144
+   at Dapper.SqlMapper.QueryRowAsync[T](IDbConnection cnn, Row row, Type effectiveType, CommandDefinition command) in /_/Dapper/SqlMapper.Async.cs:line 482
+   at DataAccessLayer.GenericRepository`1.QueryAsync(T entity, List`1 whereContext) in D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\DataAccessLayer\GenericRepository.cs:line 58

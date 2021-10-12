@@ -1,0 +1,12 @@
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\DataAccessLayer\bin\Debug\net5.0\DataAccessLayer_Dapper.deps.json
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\DataAccessLayer\bin\Debug\net5.0\DataAccessLayer_Dapper.dll
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\DataAccessLayer\bin\Debug\net5.0\ref\DataAccessLayer_Dapper.dll
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\DataAccessLayer\bin\Debug\net5.0\DataAccessLayer_Dapper.pdb
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\DataAccessLayer\obj\Debug\net5.0\DataAccessLayer_Dapper.csproj.AssemblyReference.cache
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\DataAccessLayer\obj\Debug\net5.0\DataAccessLayer_Dapper.GeneratedMSBuildEditorConfig.editorconfig
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\DataAccessLayer\obj\Debug\net5.0\DataAccessLayer_Dapper.AssemblyInfoInputs.cache
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\DataAccessLayer\obj\Debug\net5.0\DataAccessLayer_Dapper.AssemblyInfo.cs
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\DataAccessLayer\obj\Debug\net5.0\DataAccessLayer_Dapper.csproj.CoreCompileInputs.cache
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\DataAccessLayer\obj\Debug\net5.0\DataAccessLayer_Dapper.dll
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\DataAccessLayer\obj\Debug\net5.0\ref\DataAccessLayer_Dapper.dll
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\DataAccessLayer\obj\Debug\net5.0\DataAccessLayer_Dapper.pdb

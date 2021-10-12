@@ -7,7 +7,8 @@ namespace WebAPI_Core_Proj.Filters
 {
     public class ExceptionFilter : Attribute, IExceptionFilter
     {
-        private readonly ILogger _logger;
+        private ILogger<ExceptionFilter> _logger;
+
         public ExceptionFilter(ILogger<ExceptionFilter> logger)
         {
             _logger = logger;

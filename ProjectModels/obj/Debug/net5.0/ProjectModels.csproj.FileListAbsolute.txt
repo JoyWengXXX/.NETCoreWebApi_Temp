@@ -1,0 +1,12 @@
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\ProjectModels\bin\Debug\net5.0\ProjectModels.deps.json
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\ProjectModels\bin\Debug\net5.0\ProjectModels.dll
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\ProjectModels\bin\Debug\net5.0\ref\ProjectModels.dll
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\ProjectModels\bin\Debug\net5.0\ProjectModels.pdb
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\ProjectModels\obj\Debug\net5.0\ProjectModels.csproj.AssemblyReference.cache
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\ProjectModels\obj\Debug\net5.0\ProjectModels.GeneratedMSBuildEditorConfig.editorconfig
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\ProjectModels\obj\Debug\net5.0\ProjectModels.AssemblyInfoInputs.cache
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\ProjectModels\obj\Debug\net5.0\ProjectModels.AssemblyInfo.cs
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\ProjectModels\obj\Debug\net5.0\ProjectModels.csproj.CoreCompileInputs.cache
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\ProjectModels\obj\Debug\net5.0\ProjectModels.dll
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\ProjectModels\obj\Debug\net5.0\ref\ProjectModels.dll
+D:\January_Joy\JTC_Projects\模板程式\WebAPI_Core\.NETCoreWebApi_Temp\ProjectModels\obj\Debug\net5.0\ProjectModels.pdb
