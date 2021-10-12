@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using ProjectModels.ViewModels;
+using ProjectModels.DTO;
 using System.Web.Http.Filters;
 
 namespace WebAPI_Core_Proj.Controllers
@@ -11,9 +11,9 @@ namespace WebAPI_Core_Proj.Controllers
     public class BaseController : ControllerBase
     {
         protected readonly ILogger _logger;
-        protected readonly IOptions<ConfigViewModel> _config;
+        protected readonly IOptions<ProjectConfigDTO> _config;
 
-        public BaseController(IOptions<ConfigViewModel> config, ILogger<BaseController> logger)
+        public BaseController(IOptions<ProjectConfigDTO> config, ILogger<BaseController> logger)
         {
             _config = config;
             _logger = logger;

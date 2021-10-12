@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ProjectModels.Entities;
-using ProjectModels.ViewModels;
+using ProjectModels.DTO;
 //using WebAPI_Core_Proj.DAL.UsingDapper;
 using WebAPI_Core_Proj.DAL.UsingEF;
 using WebAPI_Core_Proj.Filters;
@@ -13,7 +13,7 @@ namespace WebAPI_Core_Proj.BLL
         private TestDataAccess _TestDAO;
         private ILogger<ExceptionFilter> _logger;
 
-        public TestService(IOptions<ConfigViewModel> _Config, ILogger<ExceptionFilter> logger)
+        public TestService(IOptions<ProjectConfigDTO> _Config, ILogger<ExceptionFilter> logger)
         {
             _TestDAO = new TestDataAccess(_Config);
             _logger = logger;

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAPI_Core_Proj.Models.ViewModels
+namespace ProjectModels.DTO
 {
-    public class ConfigViewModel
+    public class ProjectConfigDTO
     {
         public string connectString { get; set; }
     }

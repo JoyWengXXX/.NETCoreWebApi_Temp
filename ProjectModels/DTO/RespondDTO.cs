@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProjectModels.ViewModels
+namespace ProjectModels.DTO
 {
-    public class ResultViewModel
+    public class RespondDTO
     {
         public bool success { get; set; }
 

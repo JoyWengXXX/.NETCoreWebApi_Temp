@@ -5,13 +5,13 @@ using DataAccessLayer.Dapper.Interfaces.Enum;
 using System.Collections.Generic;
 using System.Linq;
 using ProjectModels.Entities;
-using ProjectModels.ViewModels;
+using ProjectModels.DTO;
 
 namespace WebAPI_Core_Proj.DAL.UsingDapper
 {
     public class TestDataAccess : BaseDataAccess<Test>
     {
-        public TestDataAccess(IOptions<ConfigViewModel> _Config) : base(_Config){}
+        public TestDataAccess(IOptions<ProjectConfigDTO> _Config) : base(_Config){}
 
         public Test GetTestQuery(Test entityModel)
         {

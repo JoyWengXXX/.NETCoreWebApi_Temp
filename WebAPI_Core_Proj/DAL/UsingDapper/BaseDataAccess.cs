@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System;
 using System.Linq.Expressions;
-using ProjectModels.ViewModels;
+using ProjectModels.DTO;
 
 namespace WebAPI_Core_Proj.DAL.UsingDapper
 {
@@ -11,12 +11,12 @@ namespace WebAPI_Core_Proj.DAL.UsingDapper
     {
         protected List<WhereContext> where;
         protected OrderByContext order;
-        protected ConfigViewModel proj_Config;
+        protected ProjectConfigDTO proj_Config;
 
-        public BaseDataAccess(IOptions<ConfigViewModel> _Config)
+        public BaseDataAccess(IOptions<ProjectConfigDTO> _Config)
         {
             //專案參數
-            proj_Config = new ConfigViewModel();
+            proj_Config = new ProjectConfigDTO();
             proj_Config = _Config.Value;
         }
 

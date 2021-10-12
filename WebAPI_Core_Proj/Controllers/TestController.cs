@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using ProjectModels.ViewModels;
+using ProjectModels.DTO;
 using WebAPI_Core_Proj.BLL;
 using WebAPI_Core_Proj.Filters;
 
@@ -13,7 +13,7 @@ namespace WebAPI_Core_Proj.Controllers
         private TestService _TestService;
         private ILogger<ExceptionFilter> _logger;
 
-        public TestController(IOptions<ConfigViewModel> _Config, ILogger<ExceptionFilter> logger)
+        public TestController(IOptions<ProjectConfigDTO> _Config, ILogger<ExceptionFilter> logger)
         {
             _TestService = new TestService(_Config, logger);
             _logger = logger;

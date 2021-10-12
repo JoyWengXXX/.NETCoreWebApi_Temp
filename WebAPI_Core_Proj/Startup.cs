@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using ProjectModels.ViewModels;
+using ProjectModels.DTO;
 using WebAPI_Core_Proj.Filters;
 
 namespace WebAPI_Core_Proj
@@ -31,7 +31,7 @@ namespace WebAPI_Core_Proj
             });
 
             //µù¥Uappsetting
-            services.Configure<ConfigViewModel>(Configuration.GetSection("Configurations"));
+            services.Configure<ProjectConfigDTO>(Configuration.GetSection("Configurations"));
             //µù¥UEFªºDbContext
             services.AddDbContext<Proj_DBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefualtConnectStr")));
             //µù¥UFilter
